@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AgroClime GDD Calculator (°C)</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header glass">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">🌾</div>
+      <div class="brand-text">
+        <h1>AgroClime</h1>
+        <p class="tagline">Agroclimatic Growing Degree Days (°C)</p>
+      </div>
+    </div>
+    <nav class="actions">
+      <button id="themeToggle" class="btn ghost" aria-label="Toggle theme">🌓</button>
+      <a class="btn outline" href="#about">About</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2>GDD Settings</h2>
+      <div class="grid two">
+        <label class="field">
+          <span>Base temperature (°C)</span>
+          <input type="number" id="baseTemp" step="0.1" value="10" />
+        </label>
+        <label class="field">
+          <span>Upper cutoff (°C)</span>
+          <input type="number" id="upperTemp" step="0.1" value="30" />
+        </label>
+      </div>
+      <div class="hint">
+        Uses clipped method: Tmin* = max(Tmin, Base) and Tmax* = min(Tmax, Upper).
+      </div>
+      <div class="toolbar">
+        <button id="savePrefs" class="btn">Save as default</button>
+        <button id="resetPrefs" class="btn ghost">Reset</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Daily Inputs</h2>
+        <div class="toolbar">
+          <button id="addRow" class="btn">+ Add day</button>
+          <button id="clearRows" class="btn ghost">Clear</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="gddTable" class="data-table" aria-describedby="tableHelp">
+          <thead>
+            <tr>
+              <th style="min-width: 120px;">Date</th>
+              <th>Tmin (°C)</th>
+              <th>Tmax (°C)</th>
+              <th>Clipped Avg (°C)</th>
+              <th>GDD</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Rows inserted via JS -->
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3" class="right"><strong>Total GDD</strong></td>
+              <td id="avgPreview" class="muted">—</td>
+              <td id="totalGDD" class="total">0.00</td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <p id="tableHelp" class="hint">Enter Tmin/Tmax in °C. GDD and clipped averages compute instantly.</p>
+
+      <div class="toolbar">
+        <button id="sampleData" class="btn outline">Load sample</button>
+        <button id="exportCSV" class="btn success">Export CSV</button>
+      </div>
+    </section>
+
+    <section id="about" class="panel">
+      <h2>About this calculator</h2>
+      <p>
+        <strong>AgroClime</strong> computes Growing Degree Days (GDD) in Celsius using the clipped method,
+        a common agroclimatic approach for heat accumulation. Adjust the base and upper thresholds to your crop’s needs.
+      </p>
+      <ul class="bullets">
+        <li>Instant per-day GDD and running total</li>
+        <li>Edit rows, add/remove days, and export your table to CSV</li>
+        <li>Persists thresholds in your browser</li>
+        <li>Accessible, responsive, and keyboard-friendly</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer glass">
+    <p>© <span id="year"></span> AgroClime — An agroclimatic calculator for growers & researchers.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
